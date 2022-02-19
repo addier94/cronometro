@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import { useState } from 'react';
 import './HomePage.scss';
 import StatusButtons from './StatusButtons';
 
@@ -48,12 +48,10 @@ function HomePage() {
     // run();
     setStatus(1);
     setInterv(setInterval(run, 10));
-    console.log('interv', typeof interv);
   };
 
   const stop = () => {
     clearInterval(interv);
-    console.log('interv2', typeof interv);
 
     setStatus(2);
   };
