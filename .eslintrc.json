@@ -33,7 +33,14 @@
             }
         ],
         "no-shadow": "off",
-        "@typescript-eslint/no-shadow": ["error"]
+        "@typescript-eslint/no-shadow": ["error"],
+        "react/function-component-definition": "off",
+        "react/destructuring-assignment": "off",
+        "react/no-unused-prop-types": "warn",
+        "@typescript-eslint/no-unused-vars": "warn",
+        "react/react-in-jsx-scope": 0,
+        "react/jsx-uses-react": 0,
+        "object-curly-newline": "off"
     },
     "settings": {
         "import/resolver": {

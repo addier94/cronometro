@@ -1,0 +1,26 @@
+.HomePage {
+  header{
+    @apply bg-pink-300 text-2xl text-center text-white;
+  }
+  article{
+    @apply min-h-[calc(100vh-3rem)] my-2 flex items-center justify-center;
+    .div{
+      @apply px-2 py-2 bg-pink-300 rounded-sm text-7xl;
+      main{
+        @apply border-4 p-2 border-black rounded-xl mb-3 text-center;
+        @screen sm440 {font-size: 6.6rem;}
+        @screen sm540 {font-size: 8rem;}
+        @screen md {font-size: 11.6rem;}
+        @screen lg824 {font-size: 12.6rem;}
+        @screen lg924 {font-size: 14rem;}
+        @screen lg {font-size: 16rem;}
+        section{
+          @apply relative inline-block;
+          span{
+            @apply absolute tracking-tighter -bottom-3 right-6 md:-bottom-2 md:right-10 text-xl;
+          }
+        }
+      }
+    }
+  }
+}
