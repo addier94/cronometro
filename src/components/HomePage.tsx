@@ -23,14 +23,15 @@ const Btn: React.FC<PropsBtn> = ({ text, color, click }:PropsBtn) => (
 
 interface IProps {
 timeStop: boolean,
+time: {ms: number, s: number, m: number, h: number},
 startTimer: () => void,
 stop: () => void,
 reset: () => void,
 }
 
-const Buttons = ({ timeStop, startTimer, stop, reset }:IProps) => (
+const Buttons = ({ timeStop, startTimer, stop, reset, time: { h, m, s, ms } }:IProps) => (
   <footer className="grid grid-cols-2 gap-x-2 text-3xl">
-    {timeStop && <Btn text="Start" color="bg-green-500" click={startTimer} /> }
+    {timeStop && <Btn text={`${h || m || s || ms ? 'Continue' : 'Start'}`} color="bg-green-500" click={startTimer} /> }
     {!timeStop && <Btn text="Pause" color="bg-yellow-500" click={stop} /> }
 
     <Btn text="Reset" color="bg-red-600" click={reset} />
@@ -96,7 +97,13 @@ function HomePage() {
               <span>{add0(time.ms)}</span>
             </section>
           </main>
-          <Buttons timeStop={timeStop} startTimer={startTimer} stop={stop} reset={reset} />
+          <Buttons
+            timeStop={timeStop}
+            startTimer={startTimer}
+            stop={stop}
+            reset={reset}
+            time={time}
+          />
         </div>
       </article>
     </div>
