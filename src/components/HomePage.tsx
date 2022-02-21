@@ -1,20 +1,50 @@
 import { useState } from 'react';
 import './HomePage.scss';
-import StatusButtons from './StatusButtons';
 
-const add0 = <T extends number>(value:T) => {
+// helpers
+const add0 = (value:number) => {
   if (value.toString().length > 1) {
     return value;
   }
   return `0${value}`;
 };
 
+// btn component
+interface PropsBtn {
+  text:string,
+  color: string,
+  click: () => void
+}
+const Btn: React.FC<PropsBtn> = ({ text, color, click }:PropsBtn) => (
+  <button type="button" className={`Buttons ${color}`} onClick={click}>
+    {text}
+  </button>
+);
+
+interface IProps {
+timeStop: boolean,
+startTimer: () => void,
+stop: () => void,
+reset: () => void,
+}
+
+const Buttons = ({ timeStop, startTimer, stop, reset }:IProps) => (
+  <footer className="grid grid-cols-2 gap-x-2 text-3xl">
+    {timeStop && <Btn text="Start" color="bg-green-500" click={startTimer} /> }
+    {!timeStop && <Btn text="Pause" color="bg-yellow-500" click={stop} /> }
+
+    <Btn text="Reset" color="bg-red-600" click={reset} />
+  </footer>
+);
+
+// end btn component
+
 function HomePage() {
   const [time, setTime] = useState({
     ms: 0, s: 0, m: 0, h: 0,
   });
   const [interv, setInterv] = useState<any>();
-  const [status, setStatus] = useState(0);
+  const [timeStop, setTimeStop] = useState(true);
 
   let updatedMs = time.ms; let updatedS = time.s; let updatedM = time.m; let
     updatedH = time.h;
@@ -39,26 +69,24 @@ function HomePage() {
   };
   const reset = () => {
     clearInterval(interv);
-    setStatus(0);
+    setTimeStop(true);
     setTime({
       ms: 0, s: 0, m: 0, h: 0,
     });
   };
   const startTimer = () => {
-    // run();
-    setStatus(1);
+    setTimeStop(false);
     setInterv(setInterval(run, 10));
   };
 
   const stop = () => {
     clearInterval(interv);
 
-    setStatus(2);
+    setTimeStop(true);
   };
 
   return (
     <div className="HomePage">
-      <header>domain.com</header>
       <article>
         <div className="div">
           <main>
@@ -68,7 +96,7 @@ function HomePage() {
               <span>{add0(time.ms)}</span>
             </section>
           </main>
-          <StatusButtons status={status} startTimer={startTimer} stop={stop} reset={reset} />
+          <Buttons timeStop={timeStop} startTimer={startTimer} stop={stop} reset={reset} />
         </div>
       </article>
     </div>
